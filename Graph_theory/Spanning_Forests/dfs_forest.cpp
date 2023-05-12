@@ -1,4 +1,4 @@
-// https://github.com/Ajayreddy17/Competitive_programming/new/main/Graph_theory
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Graph_theory/Spanning_Forests/dfs_forest.cpp
 // Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
 template<class T>
 struct dfs_forest{
