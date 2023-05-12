@@ -1,0 +1,84 @@
+
+// Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
+template<int h = 20>
+struct binary_lifting{
+    int n = 0;
+    vector<int> depth;
+    vector<array<int, h>> lift;
+    binary_lifting(){ }
+    // pv: parent vertex (-1 if root of an arborescence)
+    binary_lifting(const vector<int> &pv): n((int)pv.size()), depth(n, numeric_limits<int>::max()), lift(n){
+        for(auto u = 0; u < n; ++ u) lift[u][0] = ~pv[u] ? pv[u] : u;
+        for(auto bit = 1; bit < h; ++ bit) for(auto u = 0; u < n; ++ u) lift[u][bit] = lift[lift[u][bit - 1]][bit - 1];
+    }
+    // Requires graph
+    template<class Graph>
+    binary_lifting(const Graph &g, const vector<int> &roots){
+        vector<int> pv(g.n, -1), depth(g.n);
+        auto dfs = [&](auto self, int u, int pe)->void{
+            for(auto id: g.adj[u]){
+                if(id == pe || g.ignore && g.ignore(id)) continue;
+                auto &e = g.edge[id];
+                int v = u ^ e.from ^ e.to;
+                depth[v] = depth[u] + 1;
+                pv[v] = u;
+                self(self, v, id);
+            }
+        };
+        for(auto u: roots) assert(!depth[u]), pv[u] = u, dfs(dfs, u, -1);
+        *this = binary_lifting(pv, depth);
+    }
+    // pv: parent vertex (-1 if root of an arborescence)
+    binary_lifting(const vector<int> &pv, const vector<int> &depth): n((int)pv.size()), depth(depth){
+        lift.resize(n);
+        for(auto u = 0; u < n; ++ u) lift[u][0] = ~pv[u] ? pv[u] : u;
+        for(auto d = 1; d < h; ++ d) for(auto u = 0; u < n; ++ u) lift[u][d] = lift[lift[u][d - 1]][d - 1];
+    }
+    // Index becomes the current number of nodes
+    // O(log n)
+    int add_root(){
+        int u = n ++;
+        depth.push_back(0);
+        lift.emplace_back();
+        fill(lift.back().begin(), lift.back().end(), u);
+        return u;
+    }
+    // Index becomes the current number of nodes
+    // O(log n)
+    int add_child(int p){
+        assert(0 <= p && p < n);
+        int u = n ++;
+        depth.push_back(depth[p] + 1);
+        lift.emplace_back();
+        lift[u][0] = p;
+        for(auto d = 1; d < h; ++ d) lift[u][d] = lift[lift[u][d - 1]][d - 1];
+    }
+    // Get the k-th ancestor of u
+    // O(log n)
+    int ancestor(int u, int k) const{
+        for(auto d = 0; d < h; ++ d) if(k & 1 << d) u = lift[u][d];
+        return u;
+    }
+    // Assumes u and v lies on the same arboresence
+    // O(log n)
+    int lca(int u, int v) const{
+        if(depth[u] < depth[v]) swap(u, v);
+        u = ancestor(u, depth[u] - depth[v]);
+        if(u == v) return u;
+        for(auto d = h - 1; d >= 0; -- d) if(lift[u][d] != lift[v][d]) u = lift[u][d], v = lift[v][d];
+        return lift[u][0];
+    }
+    // Get # of edges between u and v
+    // Assumes u and v lies on the same arboresence
+    // O(log n)
+    int steps(int u, int v, int w = -1) const{
+        return depth[u] + depth[v] - 2 * depth[~w ? w : lca(u, v)];
+    }
+    // For an ancestor p of u, pred(p) is T, ..., T, F, ..., F in decreasing order of depth. Returns the highest p with T
+    // O(log n)
+    int find_highest(int u, auto pred) const{
+        assert(pred(u));
+        for(auto d = h - 1; d >= 0; -- d) if(pred(lift[u][d])) u = lift[u][d];
+        return u;
+    }
+};
