@@ -1,4 +1,4 @@
-// https://github.com/Ajayreddy17/Competitive_programming/edit/main/Graph_theory/graph.cpp
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Combinatorial/combinatorics.cpp
 // Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
 template<class T>
 struct combinatorics{
