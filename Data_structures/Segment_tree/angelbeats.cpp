@@ -1,4 +1,4 @@
-// https://github.com/NyaanNyaan/library/blob/master/segment-tree/segment-tree-beats.hpp
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Data_structures/Segment_tree/angelbeats.cpp
 // coded by Nyaan (https://codeforces.com/profile/Nyaan)
 struct AngelBeats {
   using i64 = long long;
