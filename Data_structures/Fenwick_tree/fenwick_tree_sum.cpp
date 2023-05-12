@@ -1,3 +1,4 @@
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Data_structures/Fenwick_tree/fenwick_tree_sum.cpp
 // Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
 template<class T>
 struct fenwick_tree_sum{
