@@ -1,3 +1,4 @@
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Data_structures/Sparse_table/range_minmax_query_solver.cpp
 // Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
 // Specialization of sparse_table
 // Range min query by default. Set cmp = greater for max query
