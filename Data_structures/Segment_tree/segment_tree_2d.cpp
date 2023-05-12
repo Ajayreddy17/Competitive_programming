@@ -1,3 +1,4 @@
+// https://github.com/Ajayreddy17/Competitive_programming/tree/main/Data_structures/Segment_tree
 // Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
 template<class T, class F>
 struct segment_tree_2d{
