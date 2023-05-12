@@ -1,4 +1,4 @@
-
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Data_structures/Fenwick_tree/range_add_range_sum_query_solver.cpp
 // Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
 template<class T>
 struct range_add_range_sum_query_solver{
