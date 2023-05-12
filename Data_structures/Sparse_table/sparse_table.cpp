@@ -1,3 +1,4 @@
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Data_structures/Sparse_table/sparse_table.cpp
 // Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
 template<class T, class F>
 struct sparse_table{
