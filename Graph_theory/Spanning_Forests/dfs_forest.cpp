@@ -1,5 +1,6 @@
 // https://github.com/Ajayreddy17/Competitive_programming/blob/main/Graph_theory/Spanning_Forests/dfs_forest.cpp
 // Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
+// Requires Graph
 template<class T>
 struct dfs_forest{
     int n;
