@@ -1,4 +1,5 @@
 // Coded by Aeren(https://codeforces.com/profile/Snow-Flower)
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Graph_theory/Dfs_Based/heavy_light_decomposition.cpp
 // Requires graph
 template<int VALS_IN_EDGES = 0>
 struct heavy_light_decomposition{
