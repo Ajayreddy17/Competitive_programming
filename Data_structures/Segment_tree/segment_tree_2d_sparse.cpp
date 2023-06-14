@@ -1,0 +1,104 @@
+// Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
+template<class B, class T, class F>
+struct segment_tree_2d_sparse{
+    vector<B> X;
+    vector<vector<array<B, 2>>> Y;
+    vector<vector<T>> data;
+    F TT; // Commutative monoid operation (always adjacent)
+    T T_id; // Commutative monoid identity
+    // Every point holds T_id except for base points
+    // O(n log^2 n)
+    segment_tree_2d_sparse(vector<pair<array<B, 2>, T>> init, F TT, T T_id): X(init.size()), TT(TT), T_id(T_id){
+        int n = (int)init.size();
+        sort(init.begin(), init.end());
+        for(auto i = 0; i < n; ++ i) X[i] = init[i].first[0];
+        X.erase(unique(X.begin(), X.end()), X.end());
+        Y.resize(X.size() << 1);
+        data.resize(X.size() << 1);
+        vector<vector<pair<array<B, 2>, T>>> hold(X.size() << 1);
+        for(auto i = 0, x = 0; i < n; ++ i){
+            auto [pos, val] = init[i];
+            while(X[x] < pos[0]) ++ x;
+            hold[x + (int)X.size()].push_back({{pos[1], pos[0]}, val});
+        }
+        for(auto x = 2 * (int)X.size() - 1; x; -- x){
+            if(x < (int)X.size()) merge(hold[x << 1].begin(), hold[x << 1].end(), hold[x << 1 | 1].begin(), hold[x << 1 | 1].end(), back_inserter(hold[x]));
+            auto &Y0 = Y[x];
+            auto &hold0 = hold[x];
+            sort(hold0.begin(), hold0.end());
+            Y0.resize(hold0.size());
+            for(auto j = 0; j < (int)hold0.size(); ++ j) Y0[j] = hold0[j].first;
+            Y0.erase(unique(Y0.begin(), Y0.end()), Y0.end());
+            data[x].resize(Y0.size() << 1, T_id);
+            for(auto j = 0, y = 0; j < (int)hold0.size(); ++ j){
+                while(Y0[y] < hold0[j].first) ++ y;
+                data[x][y + (int)Y0.size()] = TT(data[x][y + (int)Y0.size()], hold0[j].second);
+            }
+            for(auto y = (int)Y0.size() - 1; y; -- y) data[x][y] = TT(data[x][y << 1], data[x][y << 1 | 1]);
+        }
+    }
+    // O(n log^2 n)
+    segment_tree_2d_sparse(vector<array<B, 2>> base, F TT, T T_id){
+        vector<pair<array<B, 2>, T>> init(base.size());
+        for(auto i = 0; i < (int)base.size(); ++ i) init[i] = {base[i], T_id};
+        *this = segment_tree_2d_sparse(init, TT, T_id);
+    }
+    segment_tree_2d_sparse &operator=(const segment_tree_2d_sparse &otr){
+        X = otr.X;
+        Y = otr.Y;
+        data = otr.data;
+        return *this;
+    }
+    // O(log^2 n)
+    void set(B _p, B _q, T x){
+        int p = lower_bound(X.begin(), X.end(), _p) - X.begin();
+        assert(p < (int)X.size() && X[p] == _p);
+        for(p += (int)X.size(); p; p >>= 1){
+            auto &Y0 = Y[p];
+            auto &data0 = data[p];
+            int q = lower_bound(Y0.begin(), Y0.end(), array{_q, _p}) - Y0.begin();
+            assert(q < (int)Y0.size() && Y0[q][0] == _q && Y0[q][1] == _p);
+            for(data0[q += (int)Y0.size()] = x; q >>= 1; ) data0[q] = TT(data0[q << 1], data0[q << 1 | 1]);
+        }
+    }
+    // O(log n)
+    T query(B _p, B _q){
+        int p = lower_bound(X.begin(), X.end(), _p) - X.begin();
+        if(p == (int)X.size() || X[p] != _p) return T_id;
+        auto &Y0 = Y[p + (int)X.size()];
+        int q = lower_bound(Y0.begin(), Y0.end(), array{_q, _p}) - Y0.begin();
+        if(q == (int)Y0.size() || Y0[q] != array{_q, _p}) return T_id;
+        return data[p + (int)X.size()][q + (int)Y0.size()];
+    }
+    // O(log^2 n)
+    T query(B _xl, B _xr, B _yl, B _yr){
+        int xl = lower_bound(X.begin(), X.end(), _xl) - X.begin();
+        int xr = lower_bound(X.begin(), X.end(), _xr) - X.begin();
+        T res = T_id;
+        for(xl += (int)X.size(), xr += (int)X.size(); xl < xr; xl >>= 1, xr >>= 1){
+            if(xl & 1){
+                auto &Y0 = Y[xl];
+                auto &data0 = data[xl];
+                int yl = lower_bound(Y0.begin(), Y0.end(), array{_yl, numeric_limits<B>::min()}) - Y0.begin();
+                int yr = lower_bound(Y0.begin(), Y0.end(), array{_yr, numeric_limits<B>::min()}) - Y0.begin();
+                for(yl += (int)Y0.size(), yr += (int)Y0.size(); yl < yr; yl >>= 1, yr >>= 1){
+                    if(yl & 1) res = TT(res, data0[yl ++]);
+                    if(yr & 1) res = TT(res, data0[-- yr]);
+                }
+                ++ xl;
+            }
+            if(xr & 1){
+                -- xr;
+                auto &Y0 = Y[xr];
+                auto &data0 = data[xr];
+                int yl = lower_bound(Y0.begin(), Y0.end(), array{_yl, numeric_limits<B>::min()}) - Y0.begin();
+                int yr = lower_bound(Y0.begin(), Y0.end(), array{_yr, numeric_limits<B>::min()}) - Y0.begin();
+                for(yl += (int)Y0.size(), yr += (int)Y0.size(); yl < yr; yl >>= 1, yr >>= 1){
+                    if(yl & 1) res = TT(res, data0[yl ++]);
+                    if(yr & 1) res = TT(res, data0[-- yr]);
+                }
+            }
+        }
+        return res;
+    }
+};
