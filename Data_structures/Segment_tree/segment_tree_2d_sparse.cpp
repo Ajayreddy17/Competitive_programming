@@ -1,4 +1,5 @@
 // Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Data_structures/Segment_tree/segment_tree_2d_sparse.cpp
 template<class B, class T, class F>
 struct segment_tree_2d_sparse{
     vector<B> X;
