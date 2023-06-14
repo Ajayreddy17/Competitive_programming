@@ -1,4 +1,5 @@
 // Coded by Aeren (https://codeforces.com/profile/Snow-Flower)
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Data_structures/Fenwick_tree/fenwick_tree_2d_sparse_sum.cpp
 template<class B, class T>
 struct fenwick_tree_2d_sparse_sum{
     vector<B> X;
