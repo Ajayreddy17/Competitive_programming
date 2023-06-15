@@ -1,3 +1,4 @@
+// https://github.com/Ajayreddy17/Competitive_programming/blob/main/Data_structures/CumulativeSums/cumulativesum.cpp
 // coded by Ajayreddy(https://codeforces.com/profile/ajayreddy12123)
 template <class T>
 struct cumulativesum{
