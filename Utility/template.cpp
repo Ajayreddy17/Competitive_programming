@@ -7,11 +7,11 @@ using namespace std;
 using namespace __gnu_pbds;
 template<typename T> using Tree = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-#define str string
-#define ll long long
-#define ld long double
-#define ar array
+using str = string;
+using ll = long long;
+using ld = long double;
 
+#define ar array
 #define vt vector
 #define pb push_back
 #define fi first
@@ -30,6 +30,29 @@ template<typename T> using Tree = tree<T, null_type, less<T>, rb_tree_tag, tree_
 #define F_ORC(...) GET5(__VA_ARGS__, F_OR4, F_OR3, F_OR2, F_OR1)
 #define rep(...) F_ORC(__VA_ARGS__)(__VA_ARGS__)
 #define each(x, a) for (auto& x: a)
+#define die(x) {cout << x << "\n"; return 0;}
+
+template <class T>
+constexpr T inf = 0;
+template <>
+constexpr int inf<int> = 1'000'000'005;
+template <>
+constexpr long long inf<long long> = (long long)(inf<int>) * inf<int> * 2;
+template <>
+constexpr unsigned int inf<unsigned int> = inf<int>;
+template <>
+constexpr unsigned long long inf<unsigned long long> = inf<long long>;
+template <>
+constexpr __int128 inf<__int128> = __int128(inf<long long>) * inf<long long>;
+template <>
+constexpr double inf<double> = inf<long long>;
+template <>
+constexpr long double inf<long double> = inf<long long>;
+
+template<class T> T &ctmin(T &x){ return x; }
+template<class T, class Head, class ...Tail> T &ctmin(T &x, const Head &h, const Tail &... t){ return ctmin(x = min<T>(x, h), t...); }
+template<class T> T &ctmax(T &x){ return x; }
+template<class T, class Head, class ...Tail> T &ctmax(T &x, const Head &h, const Tail &... t){ return ctmax(x = max<T>(x, h), t...); }
 
 namespace io{
     template<typename First, typename Second> ostream& operator << ( ostream &os, const pair<First, Second> &p ) { return os << p.first << " " << p.second; }
@@ -68,10 +91,10 @@ signed main(){
     cin.tie(0)->sync_with_stdio(0);
     cin.exceptions(ios::badbit | ios::failbit);
     auto __solve_tc = [&](auto __tc_num)->int {
-
+        
         return 0;
     };
-    int __tc_cnt;
+    int __tc_cnt = 1;
     cin >> __tc_cnt;
     for(auto __tc_num = 0; __tc_num < __tc_cnt; ++ __tc_num){
         __solve_tc(__tc_num);
