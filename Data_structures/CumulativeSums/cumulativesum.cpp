@@ -13,5 +13,15 @@ struct cumulativesum{
         assert(0 <= l and l <= r and r <= n);
         return data[r] - data[l];
     }
+    // O(1)
+    T suff(int p, bool include = false){
+        assert(0 <= p and p < n);
+        return data[p + include] - data[0];
+    }
+    // O(1)
+    T pred(int p, bool include = false){
+        assert(0 <= p and p < n);
+        return data[n] - data[p + 1 - include];
+    }
     // TODO: max_pred
 };
