@@ -5,8 +5,6 @@ struct cumulativesum{
     int n;
     vector<T> data;
     // O(n)
-    cumulativesum(int n): n(n), data(n + 1, T(0)){}
-    // O(n)
     cumulativesum(const vector<T> &v): n((int) v.size()), data(n + 1, T(0)) {
         for (int i = 0; i < n; i ++) data[i + 1] = data[i] + v[i];
     }
