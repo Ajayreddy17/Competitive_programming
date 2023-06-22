@@ -1,4 +1,5 @@
 // Coded by Aeren(https://codeforces.com/profile/Snow-Flower)
+// Modified by Ajayreddy(https://codeforces.com/profile/ajayreddy12123)
 // https://github.com/Ajayreddy17/Competitive_programming/blob/main/Graph_theory/Dfs_Based/heavy_light_decomposition.cpp
 // Requires graph
 struct heavy_light_decomposition{
