@@ -98,13 +98,11 @@ struct heavy_light_decomposition{
         return pair{resl, resr};
     }
 
-    // non_commutative_access_path from u -> v
-    // TTR(l, r) = TT(r, l)
-    // Maintain 2 segment trees lets say,  seg(init, TT, T_ide) and segR(init, TTR, T_ide)
-    // Maintain 2 T's lets say, T down = T_ide, up = T_ide;
-    // f1(l, r) --> down = TT(down, seg.query(l, r));
-    // f2(l, r) --> up   = TTR(up, segR.query(l, r));
-    // auto result = TT(up, down);
+    // seg(init, TT, T_ide) and segR(init, TT(r, l), T_ide)
+    // T left = T_ide, right = T_ide;
+    // f1(l, r) --> left = TT(left, seg.query(l, r));
+    // f2(l, r) --> right   = TT(segR.query(l, r), right);
+    // auto result = TT(right, left);
     void non_commutative_access_path(int u, int v, auto f1, auto f2) const{
         auto [resl, resr] = get_path(u, v);
         sort(resl.begin(), resl.end(), [&](auto l, auto r){ return depth[order[l.first]] < depth[order[r.first]]; });
