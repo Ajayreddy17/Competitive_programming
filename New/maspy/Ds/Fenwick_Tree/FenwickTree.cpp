@@ -7,14 +7,11 @@ struct FenwickTree {
     E total;
 
     FenwickTree() {}
-
     FenwickTree(int n) { build(n); }
-
     template<typename F>
     FenwickTree(int n, F f) {
         build(n, f);
     }
-
     FenwickTree(const vector<E> &v) { build(v); }
 
     void build(int m) {
@@ -22,11 +19,9 @@ struct FenwickTree {
         dat.assign(m, G::unit());
         total = G::unit();
     }
-
     void build(const vector<E> &v) {
         build(v.size(), [&](int i) -> E { return v[i]; });
     }
-
     template<typename F>
     void build(int m, F f) {
         n = m;
@@ -43,15 +38,10 @@ struct FenwickTree {
     }
 
     E prod_all() { return total; }
-
     E sum_all() { return total; }
-
     E sum(int k) { return prefix_sum(k); }
-
     E prod(int k) { return prefix_prod(k); }
-
     E prefix_sum(int k) { return prefix_prod(k); }
-
     E prefix_prod(int k) {
         k = min(k, n);
         E ret = G::unit();
@@ -60,7 +50,6 @@ struct FenwickTree {
     }
 
     E sum(int L, int R) { return prod(L, R); }
-
     E prod(int L, int R) {
         L = max(L, 0), R = min(R, n);
         if (L == 0) return prefix_prod(R);
@@ -72,7 +61,6 @@ struct FenwickTree {
     }
 
     void add(int k, E x) { multiply(k, x); }
-
     void multiply(int k, E x) {
         static_assert(G::commute);
         total = G::op(total, x);
