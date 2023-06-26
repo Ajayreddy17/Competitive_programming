@@ -1,5 +1,5 @@
 //Requires FenwickTree
-// ---->   New/Ds/fenwick_tree.cpp
+// ---->   Maspy/Ds/fenwick_tree.cpp
 
 template<typename AbelGroup, typename XY, bool SMALL_X = false>
 struct Rectangle_Add_Point_Sum {
