@@ -12,7 +12,6 @@ struct Rectangle_Add_Point_Sum {
     void add_query(XY x1, XY x2, XY y1, XY y2, G g) {
         rect.emplace_back(y1, x1, x2, g), rect.emplace_back(y2, x2, x1, g);
     }
-
     void sum_query(XY x, XY y) { point.emplace_back(point.size(), x, y); }
 
 
