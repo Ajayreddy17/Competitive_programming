@@ -69,13 +69,14 @@ struct Graph {
 
     void read_graph(int M, bool wt = false, int off = 1) {
         for (int m = 0; m < M; ++m) {
-            int a = 0, b = 0;
+            int a, b;
+            cin >> a >> b;
             a -= off, b -= off;
             if (!wt) {
                 add(a, b);
             } else {
                 T c;
-                read(c);
+                cin >> c;
                 add(a, b, c);
             }
         }
