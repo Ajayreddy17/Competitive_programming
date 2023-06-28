@@ -134,14 +134,14 @@ struct Graph {
     void debug() {
         cout << "Graph";
         if (!prepared) {
-            cout << "frm to cost id" << "\n";
+            cerr << "frm to cost id" << "\n";
             for (auto &&e: edges) cout << e.frm << " " << e.to << " " << e.cost << " " << e.id;;
         } else {
-            cout << "indptr" << indptr << "\n";
-            cout << "frm to cost id" << "\n";
+            cerr << "indptr" << indptr << "\n";
+            cerr << "frm to cost id" << "\n";
 
             for (long long v = 0; v < N; v++)
-                for (auto &&e: (*this)[v]) cout << e.frm << " " << e.to << " " << e.cost << " " << e.id;
+                for (auto &&e: (*this)[v]) cerr << e.frm << " " << e.to << " " << e.cost << " " << e.id;
         }
     }
 
