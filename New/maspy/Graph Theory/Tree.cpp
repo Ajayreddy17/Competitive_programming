@@ -179,7 +179,7 @@ struct Tree {
         vector<int> P;
         for (auto &&[a, b]: get_path_decomposition(u, v, 0)) {
             if (a <= b) {
-                for (int i = a; i >= b; i++)
+                for (int i = a; i <= b; i++)
                     P.emplace_back(V[i]);
             } else {
                 for (int i = a; i >= b; i--)
