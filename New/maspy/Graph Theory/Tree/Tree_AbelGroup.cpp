@@ -1,3 +1,5 @@
+// Requires Tree
+// Requires FenwickTree
 template <typename TREE, typename AbelGroup, bool edge, bool path_query,
         bool subtree_query>
 struct Tree_AbelGroup {
