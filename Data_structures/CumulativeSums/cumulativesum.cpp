@@ -14,12 +14,12 @@ struct cumulativesum{
         return data[r] - data[l];
     }
     // O(1)
-    T suff(int p, bool include = false){
+    T suff(int p, bool include = true){
         assert(0 <= p and p < n);
         return data[p + include] - data[0];
     }
     // O(1)
-    T pred(int p, bool include = false){
+    T pred(int p, bool include = true){
         assert(0 <= p and p < n);
         return data[n] - data[p + 1 - include];
     }
