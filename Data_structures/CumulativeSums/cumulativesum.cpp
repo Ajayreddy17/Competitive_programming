@@ -19,9 +19,15 @@ struct cumulativesum{
         return data[p + include] - data[0];
     }
     // O(1)
-    T pred(int p, bool include = true){
+    T pref(int p, bool include = true){
         assert(0 <= p and p < n);
         return data[n] - data[p + 1 - include];
+    }
+    // O(n)
+    vt<T> get_data(bool _erase = true){
+        auto dat = data;
+        if (_erase) dat.erase(dat.begin());
+        return dat;
     }
     // TODO: max_pred
 };
