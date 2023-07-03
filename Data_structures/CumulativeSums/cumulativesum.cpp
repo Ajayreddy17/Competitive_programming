@@ -24,7 +24,7 @@ struct cumulativesum{
         return data[n] - data[p + 1 - include];
     }
     // O(n)
-    vt<T> get_data(bool _erase = true){
+    vector<T> get_data(bool _erase = true){
         auto dat = data;
         if (_erase) dat.erase(dat.begin());
         return dat;
