@@ -1,3 +1,4 @@
+// Requires modint_common.cpp
 template <int mod>
 struct modint {
     static_assert(mod < (1 << 30));
