@@ -1,7 +1,7 @@
 template <class mint>
 void ntt(vector<mint>& a, bool inverse) {
     assert(mint::can_ntt());
-    const int rank2 = mint::ntt_info().fi;
+    const int rank2 = mint::ntt_info().first;
     const int mod = mint::get_mod();
     static array<mint, 30> root, iroot;
     static array<mint, 30> rate2, irate2;
@@ -10,7 +10,7 @@ void ntt(vector<mint>& a, bool inverse) {
     static bool prepared = 0;
     if (!prepared) {
         prepared = 1;
-        root[rank2] = mint::ntt_info().se;
+        root[rank2] = mint::ntt_info().second;
         iroot[rank2] = mint(1) / root[rank2];
         for(int i = rank2 - 1; i >= 0; i--) {
             root[i] = root[i + 1] * root[i + 1];
@@ -78,8 +78,8 @@ void ntt(vector<mint>& a, bool inverse) {
             }
         }
     } else {
-        mint coef = mint(1) / mint(len(a));
-        for(int i = 0; i < len(a); i++) a[i] *= coef;
+        mint coef = mint(1) / mint((int) a.size());
+        for(int i = 0; i < (int) a.size(); i++) a[i] *= coef;
         int len = h;
         while (len) {
             if (len == 1) {
