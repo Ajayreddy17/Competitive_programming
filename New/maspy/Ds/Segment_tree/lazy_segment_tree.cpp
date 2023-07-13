@@ -1,5 +1,3 @@
-//Coded by Maspy-https://github.com/maspypy/library/blob/main/ds/segtree/lazy_segtree.hpp
-
 template<typename ActedMonoid>
 struct Lazy_SegTree {
     using AM = ActedMonoid;
@@ -158,6 +156,16 @@ struct Lazy_SegTree {
             sm = MX::op(dat[r], sm);
         } while ((r & -r) != r);
         return 0;
+    }
+
+    template<class output_stream>
+    friend output_stream &operator<<(output_stream &out, Lazy_SegTree<ActedMonoid> &seg){
+        out << "[";
+        for(auto i = 0; i < seg.n; ++ i){
+            out << seg.prod(i, i + 1);
+            if(i != seg.n - 1) out << ", ";
+        }
+        return out << ']';
     }
 
 private:
