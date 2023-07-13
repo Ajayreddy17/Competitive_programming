@@ -377,4 +377,26 @@ namespace Factor {
 
         return ret;
     }
+    
+    template<typename T>
+    vector<T> all_factors(T x){
+        auto primes = factorize(x);
+        vector<T> ret;
+        auto run = [&](T cur, T skip, int i, auto run) -> void{
+            if(i == (int)primes.size()){
+                ret.push_back(cur);
+            } else {
+                auto P = primes[i];
+                if(P == skip){
+                    run(cur, skip, i+1, run);
+                } else {
+                    run(cur*P, skip, i+1, run);
+                    run(cur, P, i+1, run);
+                }
+            }
+        };
+        run(T{1}, T{1}, 0, run);
+        sort(ret.begin(), ret.end());
+        return ret;
+    }
 }
